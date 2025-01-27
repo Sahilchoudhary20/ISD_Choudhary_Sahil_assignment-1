@@ -107,4 +107,17 @@ class Client:
             str: The client's email address.
         """
         return self.__email_address
+    
+def __str__(self) -> str:
+    """
+    Generates a string representation of the Client instance.
+
+    Args:
+        None
+
+    Returns:
+        str: A formatted string displaying the client's details.
+    """
+    return f"{self.__last_name}, {self.__first_name} [{self.__client_number}] - {self.__email_address}\n"
+
 
