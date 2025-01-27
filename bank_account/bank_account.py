@@ -37,3 +37,42 @@ class BankAccount:
             self.__balance = float(balance) if balance is not None else 0
         except ValueError:
             self.__balance = 0
+
+    @property
+    def account_number(self) -> int:
+        """
+        Retrieves the account number.
+
+        Args:
+            None
+
+        Returns:
+            int: The account number.
+        """
+        return self.__account_number
+
+    @property
+    def client_number(self) -> int:
+        """
+        Retrieves the client number.
+
+        Args:
+            None
+
+        Returns:
+            int: The client number.
+        """
+        return self.__client_number
+
+    @property
+    def balance(self) -> float:
+        """
+        Retrieves the current balance of the account.
+
+        Args:
+            None
+
+        Returns:
+            float: The current account balance.
+        """
+        return self.__balance
