@@ -149,3 +149,15 @@ class BankAccount:
                              + f"{formatted_balance}.")
 
         self.update_balance(-amount)
+
+    def __str__(self) -> str:
+        """
+        Returns a string representation of the bank account.
+
+        Args:
+            None
+
+        Returns:
+            str: A string summarizing the account number and balance.
+        """
+        return f"Account Number: {self.__account_number} Balance: ${self.__balance:,.2f}\n"
