@@ -76,3 +76,76 @@ class BankAccount:
             float: The current account balance.
         """
         return self.__balance
+    
+    def update_balance(self, amount: float) -> None:
+        """
+        Updates the balance based on a transaction amount.
+
+        Args:
+            amount (float): The transaction amount to adjust the balance.
+
+        Returns:
+            None
+
+        Raises:
+            ValueError: If amount cannot be converted to a float.
+        """
+        try:
+            amount = float(amount)
+            self.__balance += amount
+        except ValueError as e:
+            print(f"ERROR: {e}")
+
+    def deposit(self, amount: float) -> None:
+        """
+        Deposits an amount into the account.
+
+        Args:
+            amount (float): The deposit amount.
+
+        Returns:
+            None
+
+        Raises:
+            ValueError: If the amount is not numeric or not positive.
+        """
+        try:
+            amount = float(amount)
+        except ValueError:
+            raise ValueError(f"Deposit amount: {amount} must be numeric.")
+
+        if amount <= 0:
+            formatted_amount = f"${amount:,.2f}"
+            raise ValueError(f"Deposit amount: {formatted_amount} must be positive.")
+
+        self.update_balance(amount)
+
+    def withdraw(self, amount: float) -> None:
+        """
+        Withdraws an amount from the account.
+
+        Args:
+            amount (float): The withdrawal amount.
+
+        Returns:
+            None
+
+        Raises:
+            ValueError: If the amount is not numeric, not positive, or exceeds the balance.
+        """
+        try:
+            amount = float(amount)
+        except ValueError:
+            raise ValueError(f"Withdrawal amount: {amount} must be numeric.")
+
+        if amount <= 0:
+            formatted_amount = f"${amount:,.2f}"
+            raise ValueError(f"Withdrawal amount: {formatted_amount} must be positive.")
+
+        if amount > self.__balance:
+            formatted_amount = f"${amount:,.2f}"
+            formatted_balance = f"${self.__balance:,.2f}"
+            raise ValueError(f"Withdrawal amount: {formatted_amount} exceeds the available balance of "
+                             + f"{formatted_balance}.")
+
+        self.update_balance(-amount)
