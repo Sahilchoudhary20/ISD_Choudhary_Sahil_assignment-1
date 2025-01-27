@@ -2,35 +2,38 @@ __author__ = "Sahil Choudhary"
 __version__ = "1.0.0"
 __credits__ = "Sahil Choudhary"
 
-class Client:
+class BankAccount:
     """
-    Client class : Used to maintain client data
+    BankAccount class: Manages the details of a bank account.
     """
 
-    def __init__(self, client_number: int, first_name: str, last_name: str, email_address: str):
+    def __init__(self, account_number: int, client_number: int, balance: float = None) -> None:
         """
-        To initialize the class attributes.
+        Initializes the bank account with provided values.
 
         Args:
-            client_number (init):
-            first_name (str):
-            last_name (str):
-            email_address (str):
-        
+            account_number (int): The unique identifier for the bank account.
+            client_number (int): The unique identifier for the account holder.
+            balance (float): The starting balance of the account, default is None.
+
         Returns:
-                None
+            None
 
         Raises:
-            valueError: When client_number is non-numneric, first_name is blank or last_name is blank.
-            EmailNotValidError: When email_address is not in the correct format.    
+            ValueError: If account_number or client_number are not integers.
+            ValueError: If balance cannot be converted to a float.
         """
+        if isinstance(account_number, int):
+            self.__account_number = account_number
+        else:
+            raise ValueError("Account number must be an integer.")
 
         if isinstance(client_number, int):
             self.__client_number = client_number
         else:
-            raise ValueError("Client number should be numeric.")
-        
-        if len(first_name.strip()) > 0:
-            self.__first_name = first_name
-        else:
-            raise ValueError 
+            raise ValueError("Client number must be an integer.")
+
+        try:
+            self.__balance = float(balance) if balance is not None else 0
+        except ValueError:
+            self.__balance = 0
