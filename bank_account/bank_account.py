@@ -50,4 +50,117 @@ class BankAccount(ABC):
         else:
             self._date_created = date.today()
 
+    @property
+    def account_number(self) -> int:
+        """
+        Getter for account number.
+
+        Args:
+            None
+
+        Returns:
+            int: The account number of the bank account.
+        """
+        return self.__account_number
+
+    @property
+    def client_number(self) -> int:
+        """
+        Getter for client number.
+
+        Args:
+            None
+
+        Returns:
+            int: The client number associated with the bank account holder.
+        """
+        return self.__client_number
+
+    @property
+    def balance(self) -> float:
+        """
+        Getter for balance.
+
+        Args:
+            None
+
+        Returns:
+            float: The current balance in the bank account.
+        """
+        return self.__balance
+
+    def update_balance(self, amount: float) -> None:
+        """
+        Updates the balance by applying a transaction amount.
+
+        Args:
+            amount (float): The transaction amount to modify the balance.
+
+        Returns:
+            None
+
+        Raises:
+            ValueError: If the amount cannot be converted to a float.
+        """
+        try:
+            amount = float(amount)
+            self.__balance += amount
+        except ValueError as e:
+            print(f"ERROR: {e}")
+
+    def deposit(self, amount: float) -> None:
+        """
+        Deposits an amount into the bank account.
+
+        Args:
+            amount (float): The amount to deposit into the account.
+
+        Returns:
+            None
+
+        Raises:
+            ValueError: If the deposit amount is not numeric or is non-positive.
+        """
+        try:
+            amount = float(amount)
+        except ValueError:
+            raise ValueError(f"Deposit amount: {amount} must be numeric.")
+
+        if amount <= 0:
+            formatted_amount = f"${amount:,.2f}"
+            raise ValueError(f"Deposit amount: {formatted_amount} must be positive.")
+
+        self.update_balance(amount)
+
+    def withdraw(self, amount: float) -> None:
+        """
+        Withdraws an amount from the bank account.
+
+        Args:
+            amount (float): The amount to withdraw from the account.
+
+        Returns:
+            None
+
+        Raises:
+            ValueError: If the withdrawal amount is non-numeric, non-positive, or exceeds the balance.
+        """
+        try:
+            amount = float(amount)
+        except ValueError:
+            raise ValueError(f"Withdrawal amount: {amount} must be numeric.")
+
+        if amount <= 0:
+            formatted_amount = f"${amount:,.2f}"
+            raise ValueError(f"Withdrawal amount: {formatted_amount} must be positive.")
+
+        if amount > self.__balance:
+            formatted_amount = f"${amount:,.2f}"
+            formatted_balance = f"${self.__balance:,.2f}"
+            raise ValueError(f"Withdrawal amount: {formatted_amount} cannot exceed the current balance: "
+                             + f"{formatted_balance}.")
+
+        self.update_balance(-amount)
+
    
+
