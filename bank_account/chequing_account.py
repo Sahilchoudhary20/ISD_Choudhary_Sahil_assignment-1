@@ -49,4 +49,34 @@ class ChequingAccount(BankAccount):
         except:
             self.__overdraft_rate = 0.05  # Default overdraft rate if invalid input
 
+    def __str__(self) -> str:
+        """
+        Returns a string that represents the information of the chequing account.
+        
+        Args:
+            None
+
+        Returns:
+            str: A detailed string representation of the chequing account.
+        """
+        return (super().__str__()
+            + f"Overdraft Limit: ${self.__overdraft_limit:,.2f} "
+            + f"Overdraft Rate: {self.__overdraft_rate * 100:,.0f}% "
+            + f"Account Type: Chequing")
     
+    def get_service_charges(self) -> float:
+        """
+        Computes the service charge for the chequing account.
+
+        Args:
+            None
+
+        Returns:
+            float: The calculated service charge based on account balance and overdraft.
+        """
+        if self._BankAccount__balance >= self.__overdraft_limit:
+            service_charge = BankAccount.BASE_SERVICE_CHARGE
+        else:
+            service_charge = (BankAccount.BASE_SERVICE_CHARGE + 
+                            (self.__overdraft_limit - self._BankAccount__balance) * self.__overdraft_rate)
+        return service_charge
