@@ -42,7 +42,7 @@ class SavingsAccount(BankAccount):
         try:
             self.__minimum_balance = float(minimum_balance)
         except:
-            self.__minimum_balance = 50  
+            self.__minimum_balance = 100  
 
     def __str__(self) -> str:
         """
@@ -69,10 +69,8 @@ class SavingsAccount(BankAccount):
             float: The applicable service charge, which is either the base charge or a premium charge, depending on the balance.
         """
         if self._BankAccount__balance >= self.__minimum_balance:
-            # Apply the base service charge if the balance meets the minimum requirement.
             service_charge = BankAccount.BASE_SERVICE_CHARGE
         else:
-            # Apply a premium service charge if the balance is lower than the minimum.
             service_charge = BankAccount.BASE_SERVICE_CHARGE * SavingsAccount.SERVICE_CHARGE_PREMIUM
 
         return service_charge
