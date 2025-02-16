@@ -162,5 +162,23 @@ class BankAccount(ABC):
 
         self.update_balance(-amount)
 
-   
+    def __str__(self) -> str:
+        """
+        Returns a string representation of the bank account details.
+
+        Args:
+            None
+
+        Returns:
+            str: A summary of the bank account's account number and balance.
+        """
+        return f"Account Number: {self.__account_number} Balance: ${self.__balance:,.2f}\n"
+    
+    @abstractmethod
+    def get_service_charges(self) -> float:
+        """
+        Calculates the service charge for the account. To be implemented by subclasses.
+
+        """
+        pass
 
