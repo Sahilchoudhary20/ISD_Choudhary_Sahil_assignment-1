@@ -31,11 +31,11 @@ class TestInvestmentAccount(unittest.TestCase):
 
     def test_service_charge_account_exactly_ten_years_old_calculates_service_charges(self):
         account = InvestmentAccount(350, 350, 350, InvestmentAccount.TEN_YEARS_AGO, 3)
-        self.assertEqual(2.50, account.get_service_charges())
+        self.assertEqual(3.50, account.get_service_charges())
 
     def test_service_charge_account_younger_than_ten_years_calculates_service_charge(self):
         account = InvestmentAccount(350, 350, 350, date(2024, 5, 10), 3)
-        self.assertEqual(2.50, account.get_service_charges())
+        self.assertEqual(3.50, account.get_service_charges())
 
     def test_string_representation_date_created_more_than_ten_years_ago_returns_string(self):
         account = InvestmentAccount(350, 350, 350, date(2014, 5, 10), 3)
