@@ -9,6 +9,8 @@ Assignment : 1 - In this assignment i will leverage the knowledge gained in Modu
 
 Assignment : 2 - This assignment will extend the BankAccount class created in your previous assignment. The BankAccount class will be used as a superclass from which more specific subclasses will be derived. Each subclass will inherit attributes and methods from the superclass, and will incorporate functionality specific to the subclass. Polymorphism will be realized by having each subclass provide their own unique implementation to a superclass method. Unit testing in this assignment will be limited to verifying the expected polymorphic behaviour.
 
+Assignment : 3 - This assignment will address issues associated with the scalability and maintainability of the current service charge calculation functionality. If PiXELL River Financial decided to add several new account types each with their own formula for calculating service charges, several issues could begin to arise such as bloated subclasses, duplication of functionality, and with each potential change to service charge policy, the need to update every subclass. As such, this current polymorphic solution is not scalable. In this assignment the Strategy Pattern will be applied to simplify and add scalability to the service charge functionality. In addition, the Observer Pattern will be introduced. Using the Observer Pattern a client will be notified whenever a large transaction takes place and/or whenever an account balance drops below a minimum value.
+
 ## Encapsulation
 Private Attributes:
 
@@ -29,3 +31,4 @@ This prevents the direct modification of the __balance attribute from external c
 
 ## Polymorphism
 Polymorphism in the subclasses of BankAccount is gained from the overriding of methods, in which each subclass (i.e. ChequingAccount, SavingsAccount, InvestmentAccount) provides its specific implementation of the get_service_charges() method. This means there can be several different ways to calculate service charges in the case of each type of account. By calling get_service_charges() on objects of different subclasses, we are able to treat these instances as a single entity in the form of BankAccount objects, and it is the correct method of each subclass being called during the runtime. This is the polymorphism that serves to allow flexible and dynamic manipulation. 
+
