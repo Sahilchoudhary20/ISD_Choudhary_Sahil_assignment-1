@@ -7,6 +7,7 @@ __author__ = "Sahil Choudhary"
 __version__ = "1.0.0"
 __credits__ = "Sahil Choudhary"
 
+from patterns.strategy.Overdraft_strategy import OverdraftStrategy
 from bank_account.bank_account import BankAccount
 from datetime import date, time, timedelta
 
@@ -49,6 +50,8 @@ class ChequingAccount(BankAccount):
         except:
             self.__overdraft_rate = 0.05  # Default overdraft rate if invalid input
 
+        self.__overdraft_strategy = OverdraftStrategy(self.__overdraft_limit, self.__overdraft_rate)
+
     def __str__(self) -> str:
         """
         Returns a string that represents the information of the chequing account.
@@ -74,9 +77,5 @@ class ChequingAccount(BankAccount):
         Returns:
             float: The calculated service charge based on account balance and overdraft.
         """
-        if self._BankAccount__balance >= self.__overdraft_limit:
-            service_charge = BankAccount.BASE_SERVICE_CHARGE
-        else:
-            service_charge = (BankAccount.BASE_SERVICE_CHARGE + 
-                            (self.__overdraft_limit - self._BankAccount__balance) * self.__overdraft_rate)
+        service_charge = self.__overdraft_strategy.calculate_service_charges(self)
         return service_charge

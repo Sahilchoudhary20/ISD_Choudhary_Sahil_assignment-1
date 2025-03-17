@@ -4,18 +4,13 @@ __author__ = "Sahil Choudhary"
 __version__ = "1.0.0"
 __Credit__ = "Sahil Choudhary"
 
-from bank_account.bank_account import BankAccount
 from patterns.strategy.service_charge_strategy import ServiceChargeStrategy
+from bank_account.bank_account import BankAccount
 
 
 class MinimumBalanceStrategy(ServiceChargeStrategy):
     """
-    MinimumBalanceStrategy class: Implements a strategy for calculating service charges
-    based on whether an account's balance meets a minimum threshold.
-
-    Attributes:
-        SERVICE_CHARGE_PREMIUM (float): A constant multiplier for the service charge when the 
-                                         balance is below the minimum required threshold.
+    Employed to compute service charges for savings accounts.
     """
     
     SERVICE_CHARGE_PREMIUM = 2.0
@@ -40,9 +35,15 @@ class MinimumBalanceStrategy(ServiceChargeStrategy):
             account (BankAccount): The bank account for which the service charge is being calculated.
 
         Returns:
-            float: The calculated service charge, which may include a premium if the balance is low.
+            float: The service charge for a bank account.
         """
-        total_service_charge = self.BASE_SERVICE_CHARGE
-        if account.balance < self.__minimum_balance:
-            total_service_charge *= self.SERVICE_CHARGE_PREMIUM
-        return total_service_charge
+
+        if account.balance >= self.__minimum_balance:
+
+            service_charge = ServiceChargeStrategy.BASE_SERVICE_CHARGE
+
+        else:
+
+            service_charge = (BankAccount.BASE_SERVICE_CHARGE * MinimumBalanceStrategy.SERVICE_CHARGE_PREMIUM)
+
+        return service_charge

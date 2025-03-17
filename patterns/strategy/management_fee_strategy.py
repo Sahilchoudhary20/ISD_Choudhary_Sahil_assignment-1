@@ -10,16 +10,13 @@ from patterns.strategy.service_charge_strategy import ServiceChargeStrategy
 
 
 class ManagementFeeStrategy(ServiceChargeStrategy):
+   
     """
-    ManagementFeeStrategy class: Implements a strategy for applying service charges based on
-    account creation date and additional management fees.
-
-    Attributes:
-        TEN_YEARS_AGO (date): A constant representing the date exactly ten years ago from today.
-        SERVICE_CHARGE_PREMIUM (float): A constant used for additional service charges under certain conditions (though it's not explicitly used here).
+    Used to calculate the Management Fee for investment accounts
     """
     
     TEN_YEARS_AGO = date.today() - timedelta(days=10 * 365.25)
+
 
     def __init__(self, date_created: date, management_fee: float):
         """
@@ -29,13 +26,13 @@ class ManagementFeeStrategy(ServiceChargeStrategy):
             date_created (date): The date when the account was created.
             management_fee (float): The management fee that is charged for managing the account.
         """
-        self.__date_created = date_created
         self.__management_fee = management_fee
+        self.__date_created = date_created
+        
 
     def calculate_service_charges(self, account: BankAccount) -> float:
         """
-        Computes the service charge for the given bank account. If the account was created
-        within the last 10 years, the management fee is added to the base service charge.
+        Calculates the service charge for the account, adding the management fee if the account was created within the last 10 years.
 
         Args:
             account (BankAccount): The bank account for which the service charge is being calculated.

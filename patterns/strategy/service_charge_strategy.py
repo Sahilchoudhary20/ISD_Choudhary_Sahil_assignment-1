@@ -24,10 +24,7 @@ class ServiceChargeStrategy(ABC):
     @abstractmethod
     def calculate_service_charges(self, account: BankAccount) -> float:
         """
-        Abstract method for calculating the service charge for a given bank account.
-
-        This method must be implemented by subclasses to define the specific logic for calculating
-        the service charge based on the bank account.
+        Utilized in implementing the strategy to calculate service charges for different types of bank accounts.
 
         Args:
             account (BankAccount): The bank account for which the service charge is to be calculated.

@@ -8,6 +8,7 @@ __author__ = "Sahil Choudhary"
 __version__ = "1.0.0"
 __credits__ = "Sahil Choudhary"
 
+from patterns.strategy.Minimum_balance_strategy import MinimumBalanceStrategy
 from bank_account.bank_account import BankAccount
 from datetime import date
 
@@ -15,8 +16,6 @@ class SavingsAccount(BankAccount):
     """
     The SavingsAccount class is responsible for managing the savings accounts of clients.
     """
-
-    SERVICE_CHARGE_PREMIUM: float = 2.0  
 
     def __init__(self, account_number: int, client_number: int, balance: float,
                 date_created: date, minimum_balance: float) -> None:
@@ -43,6 +42,8 @@ class SavingsAccount(BankAccount):
             self.__minimum_balance = float(minimum_balance)
         except:
             self.__minimum_balance = 100  
+        
+        self.__minimum_balance_strategy = MinimumBalanceStrategy(self.__minimum_balance)
 
     def __str__(self) -> str:
         """
@@ -68,9 +69,5 @@ class SavingsAccount(BankAccount):
         Returns:
             float: The applicable service charge, which is either the base charge or a premium charge, depending on the balance.
         """
-        if self._BankAccount__balance >= self.__minimum_balance:
-            service_charge = BankAccount.BASE_SERVICE_CHARGE
-        else:
-            service_charge = BankAccount.BASE_SERVICE_CHARGE * SavingsAccount.SERVICE_CHARGE_PREMIUM
-
+        service_charge = self.__minimum_balance_strategy.calculate_service_charges(self)
         return service_charge
