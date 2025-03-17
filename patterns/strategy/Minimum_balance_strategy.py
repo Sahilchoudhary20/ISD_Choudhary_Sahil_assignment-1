@@ -1,36 +1,48 @@
+"""This module defines the MinimumBalanceStrategy class, which applies service charges based on a minimum balance requirement."""
+
+__author__ = "Sahil Choudhary"
+__version__ = "1.0.0"
+__Credit__ = "Sahil Choudhary"
+
 from bank_account.bank_account import BankAccount
 from patterns.strategy.service_charge_strategy import ServiceChargeStrategy
 
 
 class MinimumBalanceStrategy(ServiceChargeStrategy):
     """
-    Strategy class for calculating service charges for savings accounts with a minimum balance requirement.
-    This class implements the `calculate_service_charges` method based on the account's balance and
-    minimum balance requirement.
+    MinimumBalanceStrategy class: Implements a strategy for calculating service charges
+    based on whether an account's balance meets a minimum threshold.
+
+    Attributes:
+        SERVICE_CHARGE_PREMIUM (float): A constant multiplier for the service charge when the 
+                                         balance is below the minimum required threshold.
     """
-
-    SERVICE_CHARGE_PREMIUM: float = 2.0
-
+    
+    SERVICE_CHARGE_PREMIUM = 2.0
+    
     def __init__(self, minimum_balance: float):
         """
-        Initializes the MinimumBalanceStrategy with the minimum balance requirement.
+        Initializes the MinimumBalanceStrategy with a specified minimum balance requirement.
 
         Args:
-            minimum_balance (float): The minimum balance required for the account.
+            minimum_balance (float): The threshold below which a higher service charge 
+                                      will be applied to the account.
         """
-        self._minimum_balance = minimum_balance
+        self.__minimum_balance = float(minimum_balance)
 
-    def calculate_service_charges(self, account: 'BankAccount') -> float: 
+    def calculate_service_charges(self, account: BankAccount) -> float:
         """
-        Calculates service charges for a savings account with a minimum balance requirement.
-        If the account balance falls below the minimum, a premium service charge is applied.
+        Computes the total service charges based on the account balance and minimum balance requirement.
+
+        If the balance is below the minimum threshold, a premium service charge is applied.
 
         Args:
-            account (BankAccount): The bank account for which to calculate service charges.
+            account (BankAccount): The bank account for which the service charge is being calculated.
 
         Returns:
-            float: The total service charges, including the premium charge if applicable.
+            float: The calculated service charge, which may include a premium if the balance is low.
         """
-        if account.balance < self._minimum_balance:
-            return self.BASE_SERVICE_CHARGE + self.SERVICE_CHARGE_PREMIUM
-        return self.BASE_SERVICE_CHARGE
+        total_service_charge = self.BASE_SERVICE_CHARGE
+        if account.balance < self.__minimum_balance:
+            total_service_charge *= self.SERVICE_CHARGE_PREMIUM
+        return total_service_charge
