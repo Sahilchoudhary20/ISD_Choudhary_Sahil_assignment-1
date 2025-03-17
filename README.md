@@ -17,7 +17,7 @@ Private Attributes:
 The class uses private attributes by prefixing them with double underscores (__). For example, self.__account_number, self.__client_number, and self.__balance are all private.
 These private attributes cannot be directly accessed or modified from outside the class, ensuring that the internal data is protected and cannot be changed arbitrarily.
 
-Public Methods (Accessors and Mutators):
+Public Methods:
 
 Getter methods (accessors): The @property decorators are used to create read-only accessors for the private attributes. For instance:
 account_number, client_number, and balance are accessed through their respective getter methods, which return the value of the private attributes.
