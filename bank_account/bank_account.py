@@ -9,7 +9,6 @@ class BankAccount(ABC):
     """
     BankAccount class: Manages the records and details of a bank account.
     """
-    BASE_SERVICE_CHARGE: float = 0.50
 
     def __init__(self, account_number: int, client_number: int, balance: float, 
                 date_created: date) -> None:
