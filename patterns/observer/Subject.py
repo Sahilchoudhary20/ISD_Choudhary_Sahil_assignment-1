@@ -4,7 +4,7 @@ __author__ = "Sahil Choudhary"
 __version__ = "1.0.0"
 
 from abc import ABC, abstractmethod
-from observer import Observer
+from patterns.observer.observer import Observer
 
 class Subject(ABC):
     """
