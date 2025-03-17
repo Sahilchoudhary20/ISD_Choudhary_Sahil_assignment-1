@@ -34,3 +34,8 @@ Polymorphism in the subclasses of BankAccount is gained from the overriding of m
 
 ## Strategy Pattern
 The Strategy Pattern in this application allows different service charge calculation methods for various bank account types to be defined and used interchangeably. Each strategy class implements a common interface, enabling flexible and maintainable code by encapsulating the calculation logic for each account type.
+
+## Observer Pattern
+In this application, the Observer Pattern is used to notify clients (observers) about changes in their bank accounts (subjects). The BankAccount class acts as the subject, managing a list of observers (clients) and notifying them of events like low balances or large transactions. The Client class, as the observer, receives these notifications and updates accordingly. The pattern ensures that clients are automatically informed of relevant account changes without directly coupling them to the bank account logic.
+
+
