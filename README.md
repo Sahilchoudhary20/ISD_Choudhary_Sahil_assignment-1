@@ -32,3 +32,5 @@ This prevents the direct modification of the __balance attribute from external c
 ## Polymorphism
 Polymorphism in the subclasses of BankAccount is gained from the overriding of methods, in which each subclass (i.e. ChequingAccount, SavingsAccount, InvestmentAccount) provides its specific implementation of the get_service_charges() method. This means there can be several different ways to calculate service charges in the case of each type of account. By calling get_service_charges() on objects of different subclasses, we are able to treat these instances as a single entity in the form of BankAccount objects, and it is the correct method of each subclass being called during the runtime. This is the polymorphism that serves to allow flexible and dynamic manipulation. 
 
+## Strategy Pattern
+The Strategy Pattern in this application allows different service charge calculation methods for various bank account types to be defined and used interchangeably. Each strategy class implements a common interface, enabling flexible and maintainable code by encapsulating the calculation logic for each account type.
