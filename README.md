@@ -11,6 +11,8 @@ Assignment : 2 - This assignment will extend the BankAccount class created in yo
 
 Assignment : 3 - This assignment will address issues associated with the scalability and maintainability of the current service charge calculation functionality. If PiXELL River Financial decided to add several new account types each with their own formula for calculating service charges, several issues could begin to arise such as bloated subclasses, duplication of functionality, and with each potential change to service charge policy, the need to update every subclass. As such, this current polymorphic solution is not scalable. In this assignment the Strategy Pattern will be applied to simplify and add scalability to the service charge functionality. In addition, the Observer Pattern will be introduced. Using the Observer Pattern a client will be notified whenever a large transaction takes place and/or whenever an account balance drops below a minimum value.
 
+Assginment : 4 - 
+
 ## Encapsulation
 Private Attributes:
 
