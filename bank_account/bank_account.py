@@ -2,6 +2,7 @@ __author__ = "Sahil Choudhary"
 __version__ = "1.0.0"
 __credits__ = "Sahil Choudhary"
 
+
 from abc import ABC, abstractmethod
 from datetime import date
 from patterns.observer.observer import Observer
@@ -46,9 +47,9 @@ class BankAccount(Subject, ABC):
             self.__balance = 0.0
         
         if isinstance(date_created, date):
-            self._date_created = date_created
+            self.__date_created = date_created
         else:
-            self._date_created = date.today()
+            self.__date_created = date.today()
 
     @property
     def account_number(self) -> int:
@@ -79,6 +80,16 @@ class BankAccount(Subject, ABC):
             float: The current balance of the account.
         """
         return self.__balance
+
+    @property
+    def date_created(self) -> date:
+        """
+        Returns the account creation date.
+
+        Returns:
+            date: The date the account was created.
+        """
+        return self.__date_created
 
     def update_balance(self, amount: float) -> None:
         """

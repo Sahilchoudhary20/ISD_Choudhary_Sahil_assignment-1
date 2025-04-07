@@ -14,14 +14,12 @@ class Client(Observer):
         """
         Initializes a new Client instance with provided details.
 
-        
         Args:
             client_number (int): A unique identifier for the client.
             first_name (str): The client's first name.
             last_name (str): The client's last name.
             email_address (str): The client's email address.
 
-            
         Raises:
             ValueError: If the client number is not an integer, or if the first or last name is empty.
             EmailNotValidError: If the provided email address is invalid.
@@ -43,7 +41,7 @@ class Client(Observer):
         
         try:
             validated_email = validate_email(email_address, check_deliverability=False)
-            self.__email_address = validated_email.normalized
+            self.__email_address = validated_email.email  
         except EmailNotValidError:
             self.__email_address = "email@pixell-river.com"
 
@@ -94,8 +92,8 @@ class Client(Observer):
         Returns:
             str: A formatted string with the client's details.
         """
-        return f"{self.__last_name}, {self.__first_name} [{self.__client_number}] - {self.__email_address}"
-    
+        return f"{self.__last_name},\n{self.__first_name} [{self.__client_number}]\n{self.__email_address}\n"
+
     def update(self, message: str):
         """
         Notified when an update occurs. Sends an email with the update message.
@@ -104,7 +102,7 @@ class Client(Observer):
             message (str): The update message to be sent in the email.
         """
         current_time = datetime.now()
-        subject = f"ALERT: Unusual Activity: {current_time}"
+        subject = f"ALERT: Unusual Activity: {current_time.strftime('%Y-%m-%d %H:%M:%S')}"
         email_message = f"Notification for {self.client_number}: {self.first_name} {self.last_name}: {message}"
         
         simulate_send_email(self.email_address, subject, email_message)
