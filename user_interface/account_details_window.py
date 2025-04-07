@@ -40,4 +40,3 @@ class AccountDetailsWindow(DetailsWindow):
         self.withdraw_button.clicked.connect(self._handle_transaction)
         self.exit_button.clicked.connect(self._close_window)
 
-   
