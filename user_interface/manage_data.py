@@ -119,3 +119,50 @@ def load_data_from_files() -> tuple[dict, dict]:
     return clients_dict, accounts_dict
 
 
+def update_account_data(account: BankAccount) -> None:
+    """
+    Updates the balance of an existing account in the `accounts.csv` file.
+
+    This function reads the `accounts.csv` file, modifies the balance for the provided 
+    `BankAccount` object, and writes the updated data back into the file.
+
+    Args:
+        account (BankAccount): The bank account whose balance needs to be updated.
+
+    Returns:
+        None
+
+    Raises:
+        FileNotFoundError: If the `accounts.csv` file cannot be found.
+        PermissionError: If there is an issue writing to the file.
+    """
+    updated_rows = []
+
+    with open(accounts_file_path, mode='r', newline='') as account_file:
+        reader = csv.DictReader(account_file)
+        fieldnames = reader.fieldnames
+
+        for row in reader:
+            account_number = int(row['account_number'])
+            if account_number == account.account_number:
+                row['balance'] = account.balance
+            updated_rows.append(row)
+
+    with open(accounts_file_path, mode='w', newline='') as account_file:
+        writer = csv.DictWriter(account_file, fieldnames=fieldnames)
+        writer.writeheader()
+        writer.writerows(updated_rows)
+
+
+if __name__ == "__main__":
+    # Load clients and accounts data from the CSV files
+    clients, accounts = load_data_from_files()
+
+    print("=========================================")
+    for client in clients.values():
+        print(client)
+        print(f"{client.client_number}'s Accounts\n=============")
+        for account in accounts.values():
+            if account.client_number == client.client_number:
+                print(f"{account}\n")
+        print("=========================================")
