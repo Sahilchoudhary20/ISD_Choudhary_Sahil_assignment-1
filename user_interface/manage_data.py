@@ -78,4 +78,44 @@ def load_data_from_files() -> tuple[dict, dict]:
             except Exception as error:
                 logging.error(f"Error creating client: {error}")
 
+    # READING ACCOUNT DATA :
+    with open(accounts_file_path, newline='') as account_file:
+        reader = csv.DictReader(account_file)
+        for record in reader:
+            try:
+                account_number = int(record["account_number"])
+                client_number = int(record["client_number"])
+                account_type = record["account_type"].strip().lower()
+                balance = float(record["balance"])
+                date_created = datetime.strptime(record["date_created"], "%Y-%m-%d").date()
+
+                if client_number not in clients_dict:
+                    logging.error(f"Account {account_number} references an invalid client number {client_number}.")
+                    continue
+
+            
+                if account_type == "chequingaccount":
+                    overdraft_limit = float(record["overdraft_limit"])
+                    overdraft_rate = float(record["overdraft_rate"])
+                    account = ChequingAccount(
+                        account_number, client_number, balance, date_created, overdraft_limit, overdraft_rate
+                    )
+                elif account_type == "savingsaccount":
+                    minimum_balance = float(record["minimum_balance"])
+                    account = SavingsAccount(account_number, client_number, balance, date_created, minimum_balance)
+                elif account_type == "investmentaccount":
+                    management_fee = float(record["management_fee"])
+                    account = InvestmentAccount(account_number, client_number, balance, date_created, management_fee)
+                else:
+                    logging.error(f"Account {account_number} has an invalid account type: {account_type}")
+                    continue
+
+                accounts_dict[account_number] = account
+                print(f"[DEBUG] Loaded account: {account}")
+
+            except Exception as error:
+                logging.error(f"Error creating account: {error}")
+
+    return clients_dict, accounts_dict
+
 
