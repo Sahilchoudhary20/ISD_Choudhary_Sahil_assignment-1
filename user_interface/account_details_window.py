@@ -1,6 +1,6 @@
 __author__ = "ACE Faculty"
-__version__ = "1.0.0"
-__credits__ = ""
+__version__ = "5.0.0"
+__credits__ = "Sahil Choudhary"
 
 from ui_superclasses.details_window import DetailsWindow
 from PySide6.QtWidgets import QMessageBox
@@ -16,54 +16,28 @@ class AccountDetailsWindow(DetailsWindow):
     """
     balance_updated = Signal(BankAccount)
 
-    def __init__(self, account: BankAccount) -> None:
-        super().__init__()
+    def __init__(self, account: BankAccount, parent=None) -> None:
+        """
+        Initializes the AccountDetailsWindow.
+
+        Args:
+            account (BankAccount): The BankAccount object to display.
+            parent (QWidget, optional): The parent widget for this window. Defaults to None.
+        """
+        super().__init__(parent)
 
         if not isinstance(account, BankAccount):
+            QMessageBox.critical(self, "Initialization Error", "Invalid account type provided.")
             self.reject()
             return
 
-        self.account = copy.copy(account)
+        self._account = copy.deepcopy(account)
 
-        self.account_number_label.setText(str(self.account.account_number))
-        self.balance_label.setText(f"${self.account.balance:,.2f}")
+        self.account_number_label.setText(str(self._account.account_number))
+        self.balance_label.setText(f"${self._account.balance:,.2f}")
 
-        self.deposit_button.clicked.connect(self.on_apply_transaction)
-        self.withdraw_button.clicked.connect(self.on_apply_transaction)
-        self.exit_button.clicked.connect(self.on_exit)
+        self.deposit_button.clicked.connect(self._handle_transaction)
+        self.withdraw_button.clicked.connect(self._handle_transaction)
+        self.exit_button.clicked.connect(self._close_window)
 
-    def on_apply_transaction(self):
-        try:
-            amount = float(self.transaction_amount_edit.text())
-        except ValueError:
-            QMessageBox.information(
-                self, "Invalid Data", "Amount must be numeric.")
-            self.transaction_amount_edit.setFocus()
-            return
-
-        try:
-            sender = self.sender()
-            if sender == self.deposit_button:
-                transaction_type = "Deposit"
-                self.account.deposit(amount)
-            elif sender == self.withdraw_button:
-                transaction_type = "Withdraw"
-                self.account.withdraw(amount)
-            else:
-                return
-
-            self.balance_label.setText(
-                f"${self.account.balance:,.2f}")
-            self.transaction_amount_edit.setText("")
-            self.transaction_amount_edit.setFocus()
-
-            self.balance_updated.emit(self.account)
-
-        except Exception as e:
-            QMessageBox.information(
-                self, f"{transaction_type} Failed", str(e))
-            self.transaction_amount_edit.setText("")
-            self.transaction_amount_edit.setFocus()
-
-    def on_exit(self):
-        self.close()
+   
