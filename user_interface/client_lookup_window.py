@@ -97,3 +97,72 @@ class ClientLookupWindow(LookupWindow):
             self._reset_display()
             self.account_table.setRowCount(0)
 
+    def _handle_account_selection(self, row_index, column_index):
+        """
+        Handles the event when a cell in the account table is clicked.
+        Opens the AccountDetailsWindow for the selected account.
+        """
+        try:
+            selected_item = self.account_table.item(row_index, 0)
+            if selected_item is None:
+                QMessageBox.informativeText(
+                    self, "Invalid Selection", "Please select a valid record."
+                )
+                return
+
+            account_number_str = selected_item.text().strip()
+
+            if not account_number_str:
+                QMessageBox.informativeText(
+                    self, "Invalid Selection", "Please select a valid record."
+                )
+                return
+
+            account_number = int(account_number_str)
+
+            if account_number in self._accounts:
+                selected_account = self._accounts[account_number]
+                details_window = AccountDetailsWindow(selected_account)
+                details_window.balance_updated.connect(self._update_account_display)
+                details_window.exec()
+            else:
+                QMessageBox.informativeText(
+                    self, "No Bank Account", "Bank Account selected does not exist."
+                )
+
+        except Exception as error:
+            QMessageBox.warning(
+                self, "Error", f"Could not open account details.\n{error}"
+            )
+
+    def _update_account_display(self, updated_account: BankAccount):
+        """
+        Updates the account table display with the new balance of the updated account.
+        Also updates the internal account data and saves it.
+        """
+        for row in range(self.account_table.rowCount()):
+            item = self.account_table.item(row, 0)
+            if item and int(item.text()) == updated_account.account_number:
+                self.account_table.item(row, 1).setText(f"${updated_account.balance:,.2f}")
+                break
+
+        self._accounts[updated_account.account_number] = updated_account
+        update_account_data(updated_account)
+
+    def _show_message(self, title: str, message: str):
+        """
+        Displays an information message box.
+        """
+        QMessageBox.information(self, title, message)
+
+    def _show_warning(self, title: str, message: str):
+        """
+        Displays a warning message box.
+        """
+        QMessageBox.warning(self, title, message)
+
+    def _reset_display(self):
+        """
+        Resets the client information label.
+        """
+        self.client_info_label.setText("")
