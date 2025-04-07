@@ -1,0 +1,45 @@
+root - ERROR - Failed to create client: First Name cannot be empty.
+
+
+root - ERROR - Failed to create account: could not convert string to float: 'ten'
+
+
+root - ERROR - Failed to create account: time data '20230915' does not match format '%Y-%m-%d'
+
+
+root - ERROR - Account 20099 has an invalid account type: investmentaccoun
+
+
+root - ERROR - Account 20100 references an invalid Client ID: 9999
+
+
+root - ERROR - Failed to create client: First Name cannot be empty.
+
+
+root - ERROR - Failed to create account: could not convert string to float: 'ten'
+
+
+root - ERROR - Failed to create account: time data '20230915' does not match format '%Y-%m-%d'
+
+
+root - ERROR - Account 20099 has an invalid account type: investmentaccoun
+
+
+root - ERROR - Account 20100 references an invalid Client ID: 9999
+
+
+root - ERROR - Failed to create client: First Name cannot be empty.
+
+
+root - ERROR - Failed to create account: could not convert string to float: 'ten'
+
+
+root - ERROR - Failed to create account: time data '20230915' does not match format '%Y-%m-%d'
+
+
+root - ERROR - Account 20099 has an invalid account type: investmentaccoun
+
+
+root - ERROR - Account 20100 references an invalid Client ID: 9999
+
+

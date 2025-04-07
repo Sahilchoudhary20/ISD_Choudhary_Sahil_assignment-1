@@ -1,0 +1,15 @@
+root - ERROR - Error creating client: First name cannot be empty.
+
+
+root - ERROR - Error creating account: could not convert string to float: 'ten'
+
+
+root - ERROR - Error creating account: time data '20230915' does not match format '%Y-%m-%d'
+
+
+root - ERROR - Account 20099 has an invalid account type: investmentaccoun
+
+
+root - ERROR - Account 20100 references an invalid client number 9999.
+
+
