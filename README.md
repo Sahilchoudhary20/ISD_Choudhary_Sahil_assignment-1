@@ -13,6 +13,8 @@ Assignment : 3 - This assignment will address issues associated with the scalabi
 
 Assginment : 4 - I created a `ClientLookupWindow` class for this assignment that enables users to look up clients and see the bank accounts linked to them. In order to manage user interactions, like looking for clients and choosing accounts, I first set up the user interface and connected signals. The logic for verifying the client number, presenting the client's information, and displaying their accounts in a table was then put into practice. In order to guarantee a seamless user experience for managing client and account data, I lastly added functionality to update account details and handle events like account selection.
 
+Assignment : 5 - In this assignment, I will integrate a filtering algorithm into the GUI application, allowing users to filter the bank account list based on custom criteria. Additionally, the project will be finalized by generating HTML help files for each class, based on the docstrings written throughout the semester. Finally, I will package the project into a user-friendly installer for easy distribution to users.
+
 ## Encapsulation
 Private Attributes:
 
