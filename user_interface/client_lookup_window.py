@@ -30,3 +30,23 @@ class ClientLookupWindow(LookupWindow):
         self.account_table.cellClicked.connect(self._handle_account_selection)
         self.filter_button.clicked.connect(self.on_filter_clicked)
 
+    def on_filter_clicked(self):
+        """
+        Handles the filter button click event to apply or reset filtering.
+        """
+        if self.filter_button.text() == "Apply Filter":
+            column_index = self.filter_combo_box.currentIndex()
+            filter_text = self.filter_edit.text().lower()
+            
+            for i in range(self.account_table.rowCount()):
+                item = self.account_table.item(i, column_index)
+                if item and filter_text in item.text().lower():
+                    self.account_table.setRowHidden(i, False)
+                else:
+                    self.account_table.setRowHidden(i, True)
+            
+            self.toggle_filter(True)
+        else:
+            self.toggle_filter(False)
+
+    
