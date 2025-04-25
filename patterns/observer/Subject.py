@@ -3,49 +3,53 @@
 __author__ = "Sahil Choudhary"
 __version__ = "1.0.0"
 
+"""
+Subject class for implementing the Observer pattern.
+"""
+
 from abc import ABC, abstractmethod
 from patterns.observer.observer import Observer
 
 class Subject(ABC):
     """
-    Abstract base class representing a Subject in the Observer pattern.
-
-    This class manages a list of observers and provides methods for attaching, detaching,
-    and notifying observers.
+    Abstract class for subjects in the Observer pattern.
+    
+    This class maintains a list of observers and provides methods
+    to attach, detach, and notify them of changes.
     """
-
-    def __init__(self) -> None:
+    
+    def __init__(self):
         """
-        Initializes the subject with an empty list of observers.
+        Initialize a new Subject instance with an empty list of observers.
         """
         self._observers = []
-
-    @abstractmethod
+    
     def attach(self, observer: Observer) -> None:
         """
-        Adds an observer to the subject's list of observers.
-
+        Attach an observer to this subject.
+        
         Args:
-            observer (Observer): The observer to be added to the list.
+            observer (Observer): The observer to attach.
         """
-        pass
-
-    @abstractmethod
+        if observer not in self._observers:
+            self._observers.append(observer)
+    
     def detach(self, observer: Observer) -> None:
         """
-        Removes an observer from the subject's list of observers.
-
+        Detach an observer from this subject.
+        
         Args:
-            observer (Observer): The observer to be removed from the list.
+            observer (Observer): The observer to detach.
         """
-        pass
-
-    @abstractmethod
+        if observer in self._observers:
+            self._observers.remove(observer)
+    
     def notify(self, message: str) -> None:
         """
-        Sends a notification to all registered observers.
-
+        Notify all attached observers of a change.
+        
         Args:
-            message (str): The message to be delivered to the observers.
+            message (str): A message describing the change.
         """
-        pass
+        for observer in self._observers:
+            observer.update(message)
