@@ -42,4 +42,5 @@ The Strategy Pattern in this application allows different service charge calcula
 ## Observer Pattern
 In this application, the Observer Pattern is used to notify clients (observers) about changes in their bank accounts (subjects). The BankAccount class acts as the subject, managing a list of observers (clients) and notifying them of events like low balances or large transactions. The Client class, as the observer, receives these notifications and updates accordingly. The pattern ensures that clients are automatically informed of relevant account changes without directly coupling them to the bank account logic.
 
-
+## Filtering
+The application features an intuitive filtering system that allows users to easily locate specific transactions. They can filter by date ranges, account numbers, transaction types, or keywords - the system instantly displays matching records from CSV data. This eliminates manual searching and helps you find exactly what you need very quickly. The filters work consistently whether using the graphical interface or command line, making financial data analysis faster and more efficient for all users.
